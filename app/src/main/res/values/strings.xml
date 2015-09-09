@@ -121,5 +121,6 @@
     <string name="item_114"></string>
     <string name="item_115"></string>
     <string name="item_116"></string>
+    <string name="title_activity_item_list">ItemList</string>
 
 </resources>
