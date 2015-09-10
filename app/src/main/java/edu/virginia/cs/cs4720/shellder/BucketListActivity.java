@@ -9,25 +9,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ItemListActivity extends AppCompatActivity {
+public class BucketListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_bucket_list);
 
         final CustomAdapter adapter = new CustomAdapter(this);
-        ListView itemList = (ListView) findViewById(R.id.listView);
-        itemList.setAdapter(adapter);
+        ListView bucketList = (ListView) findViewById(R.id.listView);
+        bucketList.setAdapter(adapter);
 
-        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Item item = adapter.getItem(position);
-                Toast.makeText(ItemListActivity.this, item.getDescription(), Toast.LENGTH_LONG).show();
+                BucketListItem bucketListItem = adapter.getItem(position);
+                Toast.makeText(BucketListActivity.this, bucketListItem.getDescription(), Toast.LENGTH_LONG).show();
 
-                // Send intent to the activity containing item information
+                // Send intent to the activity containing bucketListItem information
             }
         });
     }

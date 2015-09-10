@@ -1,7 +1,8 @@
 package edu.virginia.cs.cs4720.shellder;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,28 +19,37 @@ import java.util.List;
 public class CustomAdapter extends BaseAdapter{
 
     private Context context;
-    private List<Item> itemList;
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase database;
+    private List<BucketListItem> bucketList;
 
     public CustomAdapter(Context context) {
         super();
         this.context = context;
-        this.itemList = getDataForListView();
+        this.dbHelper = new DatabaseHelper(context);
+        this.database = dbHelper.getReadableDatabase();
+        this.bucketList = getDataForListView();
     }
 
-    public List<Item> getDataForListView() {
-
-        // Create the list to return
-        List<Item> itemList = new ArrayList<Item>();
-        // Create the string array from the strings.xml file
-        Resources res = this.context.getResources();
-        String[] descriptions = res.getStringArray(R.array.item_description_array);
-
-        // Populate the list with activities from the bucket list
-        for (int i = 0; i < 35; i++) {
-            Item item = new Item(i+1, descriptions[i]);
-            itemList.add(item);
+    private List<BucketListItem> getDataForListView() {
+        List<BucketListItem> bucketList = new ArrayList<BucketListItem>();
+        Cursor cursor = database.query(dbHelper.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            BucketListItem bucketListItem = cursorToBucketListItem(cursor);
+            bucketList.add(bucketListItem);
+            cursor.moveToNext();
         }
-        return itemList;
+        cursor.close();
+        return bucketList;
+    }
+
+    private BucketListItem cursorToBucketListItem(Cursor cursor) {
+        BucketListItem bucketListItem = new BucketListItem();
+        bucketListItem.setId(cursor.getInt(0));
+        bucketListItem.setDescription(cursor.getString(1));
+        bucketListItem.setComplete(cursor.getInt(2) > 0);
+        return bucketListItem;
     }
 
     /**
@@ -49,7 +59,7 @@ public class CustomAdapter extends BaseAdapter{
      */
     @Override
     public int getCount() {
-        return itemList.size();
+        return bucketList.size();
     }
 
     /**
@@ -60,8 +70,8 @@ public class CustomAdapter extends BaseAdapter{
      * @return The data at the specified position.
      */
     @Override
-    public Item getItem(int position) {
-        return itemList.get(position);
+    public BucketListItem getItem(int position) {
+        return bucketList.get(position);
     }
 
     /**
@@ -104,10 +114,10 @@ public class CustomAdapter extends BaseAdapter{
         TextView title = (TextView) convertView.findViewById(R.id.textView1);
         TextView description = (TextView) convertView.findViewById(R.id.textView2);
 
-        Item item = itemList.get(position);
+        BucketListItem bucketListItem = bucketList.get(position);
 
-        title.setText(item.getNumber() + "");
-        description.setText(item.getDescription());
+        title.setText(bucketListItem.getId() + "");
+        description.setText(bucketListItem.getDescription());
 
         return convertView;
     }

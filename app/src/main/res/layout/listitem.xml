@@ -2,44 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:padding="6sp"
     >
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-
-        android:src="@mipmap/ic_launcher" />
-
-    <!--
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
-
-    -->
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/imageView1"
-        android:text="Title"
-        android:textSize="16sp" />
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="Number"
+        android:textSize="32sp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_alignLeft="@+id/textView1"
-        android:text="Description" />
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="24sp"
+        android:text="Description"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+    -->
 
 </RelativeLayout>
