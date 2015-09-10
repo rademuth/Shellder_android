@@ -4,13 +4,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class ItemList extends AppCompatActivity {
+public class ItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+        final CustomAdapter adapter = new CustomAdapter(this);
+        ListView itemList = (ListView) findViewById(R.id.listView);
+        itemList.setAdapter(adapter);
+
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Item item = adapter.getItem(position);
+                Toast.makeText(ItemListActivity.this, item.getDescription(), Toast.LENGTH_LONG).show();
+
+                // Send intent to the activity containing item information
+            }
+        });
     }
 
     @Override
