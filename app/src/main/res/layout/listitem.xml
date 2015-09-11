@@ -2,35 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="6sp"
+    android:paddingTop="12sp"
+    android:paddingBottom="12sp"
     >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="60sp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="Number"
-        android:textSize="32sp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="10sp"
+        android:text="#"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="end" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/textView1"
         android:layout_centerVertical="true"
-        android:layout_marginStart="24sp"
+        android:layout_toEndOf="@id/textView1"
+        android:layout_toStartOf="@+id/checkBox1"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:text="Description"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:gravity="start" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
-
-    -->
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10sp"
+        android:checked="false"
+        android:focusable="false"
+        android:enabled="false" />
 
 </RelativeLayout>
