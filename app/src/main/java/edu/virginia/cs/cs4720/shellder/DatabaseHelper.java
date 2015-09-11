@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME + " (" + COLUMN_ID + " integer, " +  COLUMN_DESCRIPTION + " text, " + COLUMN_COMPLETE + " integer);");
 
         Resources res = this.context.getResources();
-        String[] descriptions = res.getStringArray(R.array.item_description_array);
+        String[] descriptions = res.getStringArray(R.array.bucket_list_descriptions);
 
         for (int i = 0; i < 116; i++) {
             ContentValues values = new ContentValues();

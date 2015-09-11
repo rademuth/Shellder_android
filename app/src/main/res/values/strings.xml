@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">Shellder</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="title_activity_item_list">ItemList</string>
+    <string name="title_activity_bucket_list">ItemList</string>
 
-    <!-- Strings for activity descriptions -->
-    <string-array name="item_description_array">
+    <string-array name="bucket_list_descriptions">
         <item>Nab the #1 ticket at Bodo\'s</item>
         <item>Sing the Good Ole Song</item>
         <item>Attend Rotunda Sing</item>
@@ -115,7 +113,7 @@
         <item>Run on the Rivanna Trail</item>
         <item>Witness the Purple Shadows on Jefferson\'s birthday</item>
         <item>Watch the sunset from the top floor of Culbreth parking garage</item>
-        <item>Attend an Awareness Training (Green Dot, Safe Space, Diversity, etc...)</item>
+        <item>Attend an Awareness Training (Green Dot, Safe Space, Diversity, etc…)</item>
         <item>Think about applying for a job (UCS can help!!!)</item>
         <item>Encourage someone to apply to U.Va.</item>
         <item>Tell a secret at the Whispering Wall</item>
@@ -124,6 +122,244 @@
         <item>Get the feels at Graduation</item>
         <item>Go to Valediction</item>
         <item>Wear the Honors of Honor</item>
+    </string-array>
+
+    <string-array name="bucket_list_latitudes">
+        <item></item><!--Nab the #1 ticket at Bodo's-->
+        <item></item><!--Sing the Good Ole Song-->
+        <item></item><!--Attend Rotunda Sing-->
+        <item></item><!--High-five Dean Groves-->
+        <item></item><!--Make a Class Gift-->
+        <item></item><!--Paint Beta Bridge-->
+        <item></item><!--Chow down on late night food on the Corner-->
+        <item></item><!--Tailgate a football game-->
+        <item></item><!--Eat at Pancakes for Parkinson's-->
+        <item></item><!--Check out a book from a library-->
+        <item></item><!--Dress up in ties and pearls-->
+        <item></item><!--Tube down the James River-->
+        <item></item><!--See the Jefferson Statue in it's new home-->
+        <item></item><!--Relive O'Hill brunch (Yum!!!)-->
+        <item></item><!--Stroll around the Farmer's market downtown-->
+        <item></item><!--Eat at a food truck-->
+        <item></item><!--Attend Tom Tom Festival-->
+        <item></item><!--Order food to Clemons-->
+        <item></item><!--Cheer on the baseball team at Davenport-->
+        <item></item><!--Take a historical tour of U.Va.-->
+        <item></item><!--Get lunch at Bellair Market-->
+        <item></item><!--Watch an improv show-->
+        <item></item><!--Carve a pumpkin at Puppies and Pumpkins-->
+        <item></item><!--Attend a concert on the Downtown Mall-->
+        <item></item><!--Watch the sunrise from Humpback Mountain or Old Rag-->
+        <item></item><!--Sign up for an Alumni Membership-->
+        <item></item><!--Hug Ms. Kathy in Newcomb-->
+        <item></item><!--Visit Monticello-->
+        <item></item><!--Attend a class you are not enrolled in-->
+        <item></item><!--Pick apples at Carter's Mountain-->
+        <item></item><!--Check out the Declaration of Independence in Special Collections-->
+        <item></item><!--Trek to a Charlottesville brewery or vineyard-->
+        <item></item><!--Jam at Fridays After Five-->
+        <item></item><!--Attend a themed party or date function-->
+        <item></item><!--Complete the Dining Hall Marathon - 3 Dining Halls, 1 Day-->
+        <item></item><!--Volunteer through Madison House-->
+        <item></item><!--Celebrate Lighting of the Lawn-->
+        <item></item><!--Go on a real date-->
+        <item></item><!--Visit Carr's Hill-->
+        <item></item><!--Ice skate Downtown-->
+        <item></item><!--Attend the Virginia Film Festival-->
+        <item></item><!--Write on the Freedom Wall Downtown-->
+        <item></item><!--Get swole at all four gyms-->
+        <item></item><!--Experience a performance in Old Cabell Hall-->
+        <item></item><!--Make a home cooked meal-->
+        <item></item><!--Enjoy a picnic on The Lawn-->
+        <item></item><!--Compete in an Intramural Sport-->
+        <item></item><!--Take a picture in front of the "I Love Charlottesville Sign" in Belmont-->
+        <item></item><!--Get spooked at Brown College Haunting-->
+        <item></item><!--Attend Trick or Treating on The Lawn-->
+        <item></item><!--Run the 4th Year 5K-->
+        <item></item><!--Attend a musical or play in the Drama Building-->
+        <item></item><!--Participate in a Greek philanthropy event-->
+        <item></item><!--Play in Mad Bowl-->
+        <item></item><!--Hang out at a Final Friday Reception at the Fralin-->
+        <item></item><!--Sport some 2016 gear-->
+        <item></item><!--Drive up Skyline Drive-->
+        <item></item><!--Check out a multicultural event-->
+        <item></item><!--Watch a U.Va. away game at a local establishment-->
+        <item></item><!--Support someone who does St. Baldrick-->
+        <item></item><!--Attend a Homecomings event-->
+        <item></item><!--Plant in the U.Va. Community Garden-->
+        <item></item><!--Witness a Probate-->
+        <item></item><!--Visit a Pavilion resident-->
+        <item></item><!--Stargaze on the Lawn-->
+        <item></item><!--Support the tennis teams at Snyder courts-->
+        <item></item><!--Eat at Cavalier Diner-->
+        <item></item><!--Spread the U.Va. love and host a non-U.Va. friend-->
+        <item></item><!--"Take back the night"-->
+        <item></item><!--Attend UPC Springfest-->
+        <item></item><!--Bake, braid, or enjoy a loaf with Challah for Hunger-->
+        <item></item><!--Attend an Earth Week event-->
+        <item></item><!--Play a sport on Nameless field-->
+        <item></item><!--Groove to the vibes of a local band-->
+        <item></item><!--Support the lacrosse/soccer teams at Klockner-->
+        <item></item><!--Make a poster for a basketball game-->
+        <item></item><!--Indulge in College Inn cheesy bread-->
+        <item></item><!--Build a snowman on the Lawn and have a snowball fight-->
+        <item></item><!--Enjoy a U.Va. Club Ice Hockey game-->
+        <item></item><!--Attend a lecture at the Miller Center-->
+        <item></item><!--Go snow tubing at Wintergreen-->
+        <item></item><!--Survive one hour at Biltmore-->
+        <item></item><!--Attend the class party-->
+        <item></item><!--Pull an all nighter at Clemons-->
+        <item></item><!--Play a game of cornhole-->
+        <item></item><!--Attend a flash seminar-->
+        <item></item><!--Listen to a U.Va. radio broadcast-->
+        <item></item><!--Eat at Duck Donuts-->
+        <item></item><!--Get your Corks and Curls-->
+        <item></item><!--Chase a squirrel-->
+        <item></item><!--Eat brunch at a local establishment-->
+        <item></item><!--Test your knowledge at trivia night-->
+        <item></item><!--Accept a flyer from someone tabling (and actually go to the event)-->
+        <item></item><!--Try slacklining on grounds-->
+        <item></item><!--Read an article from a student publication-->
+        <item></item><!--Dance the Virginia Reel at Restoration/Colonnade Ball-->
+        <item></item><!--Participate in drag bingo-->
+        <item></item><!--Take a U-V-A picture-->
+        <item></item><!--Sing Karaoke at Fellini's-->
+        <item></item><!--Sing in a booth at the Virginian-->
+        <item></item><!--Vote in a Student Election-->
+        <item></item><!--Study in a Garden-->
+        <item></item><!--Grab a frisbee from the 21 box on the Lawn (next to Lawn room 21)-->
+        <item></item><!--Befriend a first year-->
+        <item></item><!--Run on the Rivanna Trail-->
+        <item></item><!--Witness the Purple Shadows on Jefferson's birthday-->
+        <item></item><!--Watch the sunset from the top floor of Culbreth parking garage-->
+        <item></item><!--Attend an Awareness Training (Green Dot, Safe Space, Diversity, etc…)-->
+        <item></item><!--Think about applying for a job (UCS can help!!!)-->
+        <item></item><!--Encourage someone to apply to U.Va.-->
+        <item></item><!--Tell a secret at the Whispering Wall-->
+        <item></item><!--Appreciate a horse at Foxfield-->
+        <item></item><!--Thank your parents-->
+        <item></item><!--Get the feels at Graduation-->
+        <item></item><!--Go to Valediction-->
+        <item></item><!--Wear the Honors of Honor-->
+    </string-array>
+
+    <string-array name="bucket_list_longitudes">
+        <item></item><!--Nab the #1 ticket at Bodo's-->
+        <item></item><!--Sing the Good Ole Song-->
+        <item></item><!--Attend Rotunda Sing-->
+        <item></item><!--High-five Dean Groves-->
+        <item></item><!--Make a Class Gift-->
+        <item></item><!--Paint Beta Bridge-->
+        <item></item><!--Chow down on late night food on the Corner-->
+        <item></item><!--Tailgate a football game-->
+        <item></item><!--Eat at Pancakes for Parkinson's-->
+        <item></item><!--Check out a book from a library-->
+        <item></item><!--Dress up in ties and pearls-->
+        <item></item><!--Tube down the James River-->
+        <item></item><!--See the Jefferson Statue in it's new home-->
+        <item></item><!--Relive O'Hill brunch (Yum!!!)-->
+        <item></item><!--Stroll around the Farmer's market downtown-->
+        <item></item><!--Eat at a food truck-->
+        <item></item><!--Attend Tom Tom Festival-->
+        <item></item><!--Order food to Clemons-->
+        <item></item><!--Cheer on the baseball team at Davenport-->
+        <item></item><!--Take a historical tour of U.Va.-->
+        <item></item><!--Get lunch at Bellair Market-->
+        <item></item><!--Watch an improv show-->
+        <item></item><!--Carve a pumpkin at Puppies and Pumpkins-->
+        <item></item><!--Attend a concert on the Downtown Mall-->
+        <item></item><!--Watch the sunrise from Humpback Mountain or Old Rag-->
+        <item></item><!--Sign up for an Alumni Membership-->
+        <item></item><!--Hug Ms. Kathy in Newcomb-->
+        <item></item><!--Visit Monticello-->
+        <item></item><!--Attend a class you are not enrolled in-->
+        <item></item><!--Pick apples at Carter's Mountain-->
+        <item></item><!--Check out the Declaration of Independence in Special Collections-->
+        <item></item><!--Trek to a Charlottesville brewery or vineyard-->
+        <item></item><!--Jam at Fridays After Five-->
+        <item></item><!--Attend a themed party or date function-->
+        <item></item><!--Complete the Dining Hall Marathon - 3 Dining Halls, 1 Day-->
+        <item></item><!--Volunteer through Madison House-->
+        <item></item><!--Celebrate Lighting of the Lawn-->
+        <item></item><!--Go on a real date-->
+        <item></item><!--Visit Carr's Hill-->
+        <item></item><!--Ice skate Downtown-->
+        <item></item><!--Attend the Virginia Film Festival-->
+        <item></item><!--Write on the Freedom Wall Downtown-->
+        <item></item><!--Get swole at all four gyms-->
+        <item></item><!--Experience a performance in Old Cabell Hall-->
+        <item></item><!--Make a home cooked meal-->
+        <item></item><!--Enjoy a picnic on The Lawn-->
+        <item></item><!--Compete in an Intramural Sport-->
+        <item></item><!--Take a picture in front of the "I Love Charlottesville Sign" in Belmont-->
+        <item></item><!--Get spooked at Brown College Haunting-->
+        <item></item><!--Attend Trick or Treating on The Lawn-->
+        <item></item><!--Run the 4th Year 5K-->
+        <item></item><!--Attend a musical or play in the Drama Building-->
+        <item></item><!--Participate in a Greek philanthropy event-->
+        <item></item><!--Play in Mad Bowl-->
+        <item></item><!--Hang out at a Final Friday Reception at the Fralin-->
+        <item></item><!--Sport some 2016 gear-->
+        <item></item><!--Drive up Skyline Drive-->
+        <item></item><!--Check out a multicultural event-->
+        <item></item><!--Watch a U.Va. away game at a local establishment-->
+        <item></item><!--Support someone who does St. Baldrick-->
+        <item></item><!--Attend a Homecomings event-->
+        <item></item><!--Plant in the U.Va. Community Garden-->
+        <item></item><!--Witness a Probate-->
+        <item></item><!--Visit a Pavilion resident-->
+        <item></item><!--Stargaze on the Lawn-->
+        <item></item><!--Support the tennis teams at Snyder courts-->
+        <item></item><!--Eat at Cavalier Diner-->
+        <item></item><!--Spread the U.Va. love and host a non-U.Va. friend-->
+        <item></item><!--"Take back the night"-->
+        <item></item><!--Attend UPC Springfest-->
+        <item></item><!--Bake, braid, or enjoy a loaf with Challah for Hunger-->
+        <item></item><!--Attend an Earth Week event-->
+        <item></item><!--Play a sport on Nameless field-->
+        <item></item><!--Groove to the vibes of a local band-->
+        <item></item><!--Support the lacrosse/soccer teams at Klockner-->
+        <item></item><!--Make a poster for a basketball game-->
+        <item></item><!--Indulge in College Inn cheesy bread-->
+        <item></item><!--Build a snowman on the Lawn and have a snowball fight-->
+        <item></item><!--Enjoy a U.Va. Club Ice Hockey game-->
+        <item></item><!--Attend a lecture at the Miller Center-->
+        <item></item><!--Go snow tubing at Wintergreen-->
+        <item></item><!--Survive one hour at Biltmore-->
+        <item></item><!--Attend the class party-->
+        <item></item><!--Pull an all nighter at Clemons-->
+        <item></item><!--Play a game of cornhole-->
+        <item></item><!--Attend a flash seminar-->
+        <item></item><!--Listen to a U.Va. radio broadcast-->
+        <item></item><!--Eat at Duck Donuts-->
+        <item></item><!--Get your Corks and Curls-->
+        <item></item><!--Chase a squirrel-->
+        <item></item><!--Eat brunch at a local establishment-->
+        <item></item><!--Test your knowledge at trivia night-->
+        <item></item><!--Accept a flyer from someone tabling (and actually go to the event)-->
+        <item></item><!--Try slacklining on grounds-->
+        <item></item><!--Read an article from a student publication-->
+        <item></item><!--Dance the Virginia Reel at Restoration/Colonnade Ball-->
+        <item></item><!--Participate in drag bingo-->
+        <item></item><!--Take a U-V-A picture-->
+        <item></item><!--Sing Karaoke at Fellini's-->
+        <item></item><!--Sing in a booth at the Virginian-->
+        <item></item><!--Vote in a Student Election-->
+        <item></item><!--Study in a Garden-->
+        <item></item><!--Grab a frisbee from the 21 box on the Lawn (next to Lawn room 21)-->
+        <item></item><!--Befriend a first year-->
+        <item></item><!--Run on the Rivanna Trail-->
+        <item></item><!--Witness the Purple Shadows on Jefferson's birthday-->
+        <item></item><!--Watch the sunset from the top floor of Culbreth parking garage-->
+        <item></item><!--Attend an Awareness Training (Green Dot, Safe Space, Diversity, etc…)-->
+        <item></item><!--Think about applying for a job (UCS can help!!!)-->
+        <item></item><!--Encourage someone to apply to U.Va.-->
+        <item></item><!--Tell a secret at the Whispering Wall-->
+        <item></item><!--Appreciate a horse at Foxfield-->
+        <item></item><!--Thank your parents-->
+        <item></item><!--Get the feels at Graduation-->
+        <item></item><!--Go to Valediction-->
+        <item></item><!--Wear the Honors of Honor-->
     </string-array>
 
 </resources>
