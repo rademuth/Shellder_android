@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.shellder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,8 @@ public class BucketListActivity extends AppCompatActivity {
                 Toast.makeText(BucketListActivity.this, bucketListItem.getDescription(), Toast.LENGTH_SHORT).show();
 
                 // Send intent to the activity containing bucketListItem information
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
             }
         });
     }

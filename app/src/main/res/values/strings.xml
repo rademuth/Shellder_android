@@ -243,5 +243,6 @@
         <item>38.035203,-78.503638</item><!--Go to Valediction-->
         <item>38.035203,-78.503638</item><!--Wear the Honors of Honor-->
     </string-array>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
