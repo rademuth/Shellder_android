@@ -33,7 +33,7 @@ public class CustomAdapter extends BaseAdapter{
 
     private List<BucketListItem> getDataForListView() {
         List<BucketListItem> bucketList = new ArrayList<BucketListItem>();
-        Cursor cursor = database.query(dbHelper.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             BucketListItem bucketListItem = cursorToBucketListItem(cursor);
@@ -47,8 +47,11 @@ public class CustomAdapter extends BaseAdapter{
     private BucketListItem cursorToBucketListItem(Cursor cursor) {
         BucketListItem bucketListItem = new BucketListItem();
         bucketListItem.setId(cursor.getInt(0));
-        bucketListItem.setDescription(cursor.getString(1));
-        bucketListItem.setComplete(cursor.getInt(2) > 0);
+        bucketListItem.setTitle(cursor.getString(1));
+        bucketListItem.setDescription(cursor.getString(2));
+        bucketListItem.setLatitude(cursor.getFloat(3));
+        bucketListItem.setLongitude(cursor.getFloat(4));
+        bucketListItem.setComplete(cursor.getInt(5) > 0);
         return bucketListItem;
     }
 
@@ -117,7 +120,7 @@ public class CustomAdapter extends BaseAdapter{
         BucketListItem bucketListItem = bucketList.get(position);
 
         title.setText(bucketListItem.getId() + "");
-        description.setText(bucketListItem.getDescription());
+        description.setText(bucketListItem.getTitle());
 
         return convertView;
     }

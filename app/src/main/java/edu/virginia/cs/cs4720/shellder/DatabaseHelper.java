@@ -6,9 +6,6 @@ import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by Robbie on 9/10/2015.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "bucket_list.db";
@@ -16,7 +13,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "bucket_list_items";
     public static final String COLUMN_ID = "id";
+    public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_LATITUDE = "latitude";
+    public static final String COLUMN_LONGITUDE = "longitude";
     public static final String COLUMN_COMPLETE = "complete";
 
     private Context context;
@@ -34,16 +34,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (" + COLUMN_ID + " integer, " +  COLUMN_DESCRIPTION + " text, " + COLUMN_COMPLETE + " integer);");
+        db.execSQL("create table " + TABLE_NAME + " (" + COLUMN_ID + " integer, " + COLUMN_TITLE + " text," + COLUMN_DESCRIPTION + " text, " + COLUMN_LATITUDE + "float, " + COLUMN_LONGITUDE + "float, " + COLUMN_COMPLETE + " integer);");
 
         Resources res = this.context.getResources();
+        String[] titles = res.getStringArray(R.array.bucket_list_titles);
         String[] descriptions = res.getStringArray(R.array.bucket_list_descriptions);
+        String[] coordinates = res.getStringArray(R.array.bucket_list_coordinates);
 
         for (int i = 0; i < 116; i++) {
             ContentValues values = new ContentValues();
-            values.put(this.COLUMN_ID, i+1);
-            values.put(this.COLUMN_DESCRIPTION, descriptions[i]);
-            values.put(this.COLUMN_COMPLETE, 0);
+
+            values.put(COLUMN_ID, i+1);
+            values.put(COLUMN_TITLE, titles[i]);
+            values.put(COLUMN_DESCRIPTION, descriptions[i]);
+
+            String[] coordinate = coordinates[i].split(",");
+            if (coordinate.length == 1) {
+                values.putNull(COLUMN_LATITUDE);
+                values.putNull(COLUMN_LONGITUDE);
+            } else {
+                values.put(COLUMN_LATITUDE, Float.parseFloat(coordinate[0]));
+                values.put(COLUMN_LONGITUDE, Float.parseFloat(coordinate[1]));
+            }
+
+            values.put(COLUMN_COMPLETE, 0);
+
             db.insert(TABLE_NAME,null,values);
         }
     }

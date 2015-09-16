@@ -26,10 +26,11 @@ public class BucketListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BucketListItem bucketListItem = adapter.getItem(position);
-                Toast.makeText(BucketListActivity.this, bucketListItem.getDescription(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BucketListActivity.this, bucketListItem.getTitle(), Toast.LENGTH_SHORT).show();
 
-                // Send intent to the activity containing bucketListItem information
+                // Send intent to map activity
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("id",position+1);
                 startActivity(intent);
             }
         });

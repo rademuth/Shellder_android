@@ -7,25 +7,25 @@ package edu.virginia.cs.cs4720.shellder;
 public class BucketListItem {
 
     private int id;
+    private String title;
     private String description;
+    private float latitude;
+    private float longitude;
     private boolean complete;
-
-    /* Might want to add the following fields
-     * - Latitude
-     * - Longitude
-     * - Picture
-     */
 
     public BucketListItem() {
         this.id = 0;
-        this.description = "";
+        this.title = "";
         this.complete = false;
     }
 
-    public BucketListItem(int id, String description) {
+    public BucketListItem(int id, String title, String description, float latitude, float longitude) {
         this.id = id;
+        this.title = title;
         this.description = description;
         this.complete = false;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -36,12 +36,34 @@ public class BucketListItem {
         this.id = id;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getTitle() {
+        return this.title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() { return this.description; }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public float getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
     public boolean getComplete() {
