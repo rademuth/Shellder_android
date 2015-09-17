@@ -28,7 +28,7 @@ public class BucketListActivity extends AppCompatActivity {
                 BucketListItem bucketListItem = adapter.getItem(position);
                 Toast.makeText(BucketListActivity.this, bucketListItem.getTitle(), Toast.LENGTH_SHORT).show();
 
-                // Send intent to map activity
+                // Send an intent to the map activity
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("id",position+1);
                 startActivity(intent);

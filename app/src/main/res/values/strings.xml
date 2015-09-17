@@ -156,7 +156,7 @@
         <item>38.008575,-78.453232</item> <!--Visit Monticello-->
         <item>                    </item> <!--Attend a class you are not enrolled in-->
         <item>37.991660,-78.471458</item> <!--Pick apples at Carter's Mountain-->
-        38.036124,-78.505804<!--Check out the Declaration of Independence in Special Collections-->
+        <item>38.036124,-78.505804</item><!--Check out the Declaration of Independence in Special Collections-->
         <item>                    </item> <!--Trek to a Charlottesville brewery or vineyard-->
         <item>38.029930,-78.478743</item> <!--Jam at Fridays After Five-->
         <item>                    </item> <!--Attend a themed party or date function-->
@@ -275,7 +275,7 @@
         <item>38.008575,-78.453232</item> <!--Visit Monticello-->
         <item>                    </item> <!--Attend a class you are not enrolled in-->
         <item>37.991660,-78.471458</item> <!--Pick apples at Carter's Mountain-->
-        38.036124,-78.505804<!--Check out the Declaration of Independence in Special Collections-->
+        <item>38.036124,-78.505804</item><!--Check out the Declaration of Independence in Special Collections-->
         <item>                    </item> <!--Trek to a Charlottesville brewery or vineyard-->
         <item>38.029930,-78.478743</item> <!--Jam at Fridays After Five-->
         <item>                    </item> <!--Attend a themed party or date function-->

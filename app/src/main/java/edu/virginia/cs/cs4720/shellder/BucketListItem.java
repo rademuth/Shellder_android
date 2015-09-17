@@ -19,13 +19,13 @@ public class BucketListItem {
         this.complete = false;
     }
 
-    public BucketListItem(int id, String title, String description, float latitude, float longitude) {
+    public BucketListItem(int id, String title, String description, float latitude, float longitude, boolean complete) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.complete = false;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.complete = complete;
     }
 
     public int getId() {

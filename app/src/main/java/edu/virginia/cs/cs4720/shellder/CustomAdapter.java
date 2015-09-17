@@ -12,13 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Robbie on 9/9/2015.
- */
-
 public class CustomAdapter extends BaseAdapter{
 
     private Context context;
+    // TODO - Do we need to close the database
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
     private List<BucketListItem> bucketList;
@@ -36,23 +33,12 @@ public class CustomAdapter extends BaseAdapter{
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            BucketListItem bucketListItem = cursorToBucketListItem(cursor);
+            BucketListItem bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
             bucketList.add(bucketListItem);
             cursor.moveToNext();
         }
         cursor.close();
         return bucketList;
-    }
-
-    private BucketListItem cursorToBucketListItem(Cursor cursor) {
-        BucketListItem bucketListItem = new BucketListItem();
-        bucketListItem.setId(cursor.getInt(0));
-        bucketListItem.setTitle(cursor.getString(1));
-        bucketListItem.setDescription(cursor.getString(2));
-        bucketListItem.setLatitude(cursor.getFloat(3));
-        bucketListItem.setLongitude(cursor.getFloat(4));
-        bucketListItem.setComplete(cursor.getInt(5) > 0);
-        return bucketListItem;
     }
 
     /**

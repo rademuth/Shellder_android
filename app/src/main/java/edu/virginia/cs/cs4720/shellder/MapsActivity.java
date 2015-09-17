@@ -1,23 +1,42 @@
 package edu.virginia.cs.cs4720.shellder;
 
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    LocationManager locationManager;
-    LocationListener locationListener;
+    // TODO - Do we need to close the database
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase database;
+    private BucketListItem bucketListItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // Get data from the bucket list activity
+        Intent intent = getIntent();
+        int index = intent.getIntExtra("id", 0);
+
+        dbHelper = new DatabaseHelper(this);
+        database = dbHelper.getReadableDatabase();
+
+        String selection = "id = ?";
+        String[] selectionArgs = {index + ""};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
+        cursor.close();
+
         setUpMapIfNeeded();
     }
 
@@ -45,7 +64,7 @@ public class MapsActivity extends FragmentActivity {
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
+            // Try to obtain the map from thde SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
@@ -62,7 +81,10 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         mMap.setMyLocationEnabled(true);
+
+        // Add marker for the bucket list item location
+        mMap.addMarker(new MarkerOptions().position(new LatLng(bucketListItem.getLatitude(), bucketListItem.getLongitude())));
+
     }
 }
