@@ -38,6 +38,7 @@ public class BucketListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override

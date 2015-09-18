@@ -1,15 +1,100 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="edu.virginia.cs.cs4720.shellder.BucketListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8sp"
+        android:id="@+id/linearLayout_outer">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout_inner1">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:maxWidth="60sp"
+                android:maxHeight="60sp"
+                android:src="@drawable/ic_done" />
+            <TextView
+                android:id="@+id/complete_items"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:text="Complete"
+                android:textSize="16sp"
+                android:clickable="true"
+                android:onClick=""/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout_inner2">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:maxWidth="60sp"
+                android:maxHeight="60sp"
+                android:src="@drawable/ic_list" />
+            <TextView
+                android:id="@+id/all_items"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:text="All"
+                android:textSize="16sp"
+                android:clickable="true"
+                android:onClick=""/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout_inner3">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:maxWidth="60sp"
+                android:maxHeight="60sp"
+                android:src="@drawable/ic_progress" />
+            <TextView
+                android:id="@+id/remaining_items"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:gravity="center"
+                android:text="Remaining"
+                android:textSize="16sp"
+                android:clickable="true"
+                android:onClick=""/>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_outer">
     </ListView>
 
 </RelativeLayout>

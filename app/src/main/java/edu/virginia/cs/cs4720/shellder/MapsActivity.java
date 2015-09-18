@@ -3,14 +3,19 @@ package edu.virginia.cs.cs4720.shellder;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity {
@@ -94,11 +99,31 @@ public class MapsActivity extends FragmentActivity {
     private void setUpMap() {
         mMap.setMyLocationEnabled(true);
 
+        /*
+
+        // Get current location
+        Location location = mMap.getMyLocation();
+        double my_latitude = location.getLatitude();
+        double my_longitude = location.getLongitude();
+
+        */
+
         // Add marker for the bucket list item location
         float latitude = bucketListItem.getLatitude();
         float longitude = bucketListItem.getLongitude();
-        //Toast.makeText(this, "Latitude: " + latitude + ", Longitude " + longitude, Toast.LENGTH_SHORT).show();
         mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+
+        /*
+
+        // Zoom appropriately
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(new LatLng(my_latitude, my_longitude));
+        builder.include(new LatLng(latitude, longitude));
+        LatLngBounds bounds = builder.build();
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
+        mMap.moveCamera(cu);
+
+        */
 
     }
 }
