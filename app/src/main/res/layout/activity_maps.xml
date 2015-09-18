@@ -1,5 +1,24 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/map"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+<fragment
+    android:id="@+id/map"
+    android:layout_weight="1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+
+    <CheckBox
+        android:layout_width="159dp"
+        android:layout_height="158dp"
+        android:text="Completed"
+        android:checked="false"
+        android:id="@+id/completeButton" />
+
+</LinearLayout>
