@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -21,6 +23,9 @@ public class MapsActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.i("MapsActivity","onCreate()");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -28,12 +33,15 @@ public class MapsActivity extends FragmentActivity {
         Intent intent = getIntent();
         int index = intent.getIntExtra("id", 0);
 
+        Log.i("Index",index+"");
+
         dbHelper = new DatabaseHelper(this);
         database = dbHelper.getReadableDatabase();
 
         String selection = "id = ?";
         String[] selectionArgs = {index + ""};
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        cursor.moveToFirst();
         bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
         cursor.close();
 
@@ -42,6 +50,9 @@ public class MapsActivity extends FragmentActivity {
 
     @Override
     protected void onResume() {
+
+        Log.i("MapsActivity","onResume()");
+
         super.onResume();
         setUpMapIfNeeded();
     }
@@ -84,7 +95,10 @@ public class MapsActivity extends FragmentActivity {
         mMap.setMyLocationEnabled(true);
 
         // Add marker for the bucket list item location
-        mMap.addMarker(new MarkerOptions().position(new LatLng(bucketListItem.getLatitude(), bucketListItem.getLongitude())));
+        float latitude = bucketListItem.getLatitude();
+        float longitude = bucketListItem.getLongitude();
+        //Toast.makeText(this, "Latitude: " + latitude + ", Longitude " + longitude, Toast.LENGTH_SHORT).show();
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
 
     }
 }

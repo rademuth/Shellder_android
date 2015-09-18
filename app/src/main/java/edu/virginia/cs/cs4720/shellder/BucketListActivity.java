@@ -3,6 +3,7 @@ package edu.virginia.cs.cs4720.shellder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,9 @@ public class BucketListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.i("BucketListActivity", "onCreate()");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list);
 
@@ -26,7 +30,7 @@ public class BucketListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BucketListItem bucketListItem = adapter.getItem(position);
-                Toast.makeText(BucketListActivity.this, bucketListItem.getTitle(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BucketListActivity.this, bucketListItem.getTitle(), Toast.LENGTH_SHORT).show();
 
                 // Send an intent to the map activity
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
