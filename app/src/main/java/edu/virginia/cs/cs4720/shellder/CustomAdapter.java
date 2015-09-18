@@ -20,17 +20,31 @@ public class CustomAdapter extends BaseAdapter{
     private SQLiteDatabase database;
     private List<BucketListItem> bucketList;
 
-    public CustomAdapter(Context context) {
+    public CustomAdapter(Context context, BucketListActivity.State state) {
         super();
         this.context = context;
         this.dbHelper = new DatabaseHelper(context);
         this.database = dbHelper.getReadableDatabase();
-        this.bucketList = getDataForListView();
+        this.bucketList = getDataForListView(state);
     }
 
-    private List<BucketListItem> getDataForListView() {
+    private List<BucketListItem> getDataForListView(BucketListActivity.State state) {
         List<BucketListItem> bucketList = new ArrayList<BucketListItem>();
-        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor;
+        if (state == BucketListActivity.State.ALL) {
+            // All items
+            cursor = database.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
+        } else if (state == BucketListActivity.State.COMPLETE) {
+            // Complete items
+            String selection = "complete = ?";
+            String[] selectionArgs = {1 + ""};
+            cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        } else {
+            // Incomplete items
+            String selection = "complete = ?";
+            String[] selectionArgs = {0 + ""};
+            cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             BucketListItem bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);

@@ -8,10 +8,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class BucketListActivity extends AppCompatActivity {
+
+    public enum State {
+        ALL, COMPLETE, INPROGRESS
+    }
+    private State state;
+
+    private LinearLayout tab_all;
+    private LinearLayout tab_complete;
+    private LinearLayout tab_inProgress;
+
+    private ListView bucketList;
+    private CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +34,109 @@ public class BucketListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list);
 
-        final CustomAdapter adapter = new CustomAdapter(this);
-        ListView bucketList = (ListView) findViewById(R.id.listView);
+        tab_complete = (LinearLayout) findViewById(R.id.linearLayout_inner1);
+        tab_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_complete(v);
+            }
+        });
+        tab_all = (LinearLayout) findViewById(R.id.linearLayout_inner2);
+        tab_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_all(v);
+            }
+        });
+        tab_inProgress = (LinearLayout) findViewById(R.id.linearLayout_inner3);
+        tab_inProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show_inProgress(v);
+            }
+        });
+
+        bucketList = (ListView) findViewById(R.id.listView);
+        adapter = new CustomAdapter(this, State.ALL);
+
         bucketList.setAdapter(adapter);
+        state = State.ALL;
 
         bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BucketListItem bucketListItem = adapter.getItem(position);
-                //Toast.makeText(BucketListActivity.this, bucketListItem.getTitle(), Toast.LENGTH_SHORT).show();
-
                 // Send an intent to the map activity
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("id",position+1);
+                intent.putExtra("id",bucketListItem.getId());
                 startActivity(intent);
             }
         });
 
+    }
+
+    public void show_all(View v) {
+        if (state != State.ALL) {
+            state = State.ALL;
+            adapter = new CustomAdapter(this, State.ALL);
+
+            bucketList.setAdapter(adapter);
+
+            bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BucketListItem bucketListItem = adapter.getItem(position);
+                    // Send an intent to the map activity
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putExtra("id",bucketListItem.getId());
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    public void show_complete(View v) {
+        if (state != State.COMPLETE) {
+            state = State.COMPLETE;
+            adapter = new CustomAdapter(this, State.COMPLETE);
+
+            bucketList.setAdapter(adapter);
+
+            bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BucketListItem bucketListItem = adapter.getItem(position);
+                    // Send an intent to the map activity
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putExtra("id",bucketListItem.getId());
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    public void show_inProgress(View v) {
+        if (state != State.INPROGRESS) {
+            state = State.INPROGRESS;
+            adapter = new CustomAdapter(this, State.INPROGRESS);
+
+            bucketList.setAdapter(adapter);
+
+            bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BucketListItem bucketListItem = adapter.getItem(position);
+                    // Send an intent to the map activity
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putExtra("id",bucketListItem.getId());
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
