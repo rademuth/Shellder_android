@@ -7,6 +7,7 @@ import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -49,6 +50,9 @@ public class MapsActivity extends FragmentActivity {
         cursor.moveToFirst();
         bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
         cursor.close();
+
+        CheckBox complete = (CheckBox) findViewById(R.id.completeButton);
+        complete.setChecked(bucketListItem.getComplete());
 
         setUpMapIfNeeded();
     }
