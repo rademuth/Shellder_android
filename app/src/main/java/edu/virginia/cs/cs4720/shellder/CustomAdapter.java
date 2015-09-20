@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -114,13 +115,15 @@ public class CustomAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.listitem, parent, false);
         }
 
-        TextView title = (TextView) convertView.findViewById(R.id.textView1);
-        TextView description = (TextView) convertView.findViewById(R.id.textView2);
+        TextView id = (TextView) convertView.findViewById(R.id.textView1);
+        TextView title = (TextView) convertView.findViewById(R.id.textView2);
+        CheckBox complete = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
         BucketListItem bucketListItem = bucketList.get(position);
 
-        title.setText(bucketListItem.getId() + "");
-        description.setText(bucketListItem.getTitle());
+        id.setText(bucketListItem.getId() + "");
+        title.setText(bucketListItem.getTitle());
+        complete.setChecked(bucketListItem.getComplete());
 
         return convertView;
     }

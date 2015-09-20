@@ -60,7 +60,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values.put(COLUMN_LONGITUDE, Float.parseFloat(coordinate[1]));
             }
 
-            values.put(COLUMN_COMPLETE, 0);
+            if (i % 3 == 0) {
+                values.put(COLUMN_COMPLETE, 1);
+            } else {
+                values.put(COLUMN_COMPLETE, 0);
+            }
 
             db.insert(TABLE_NAME,null,values);
         }

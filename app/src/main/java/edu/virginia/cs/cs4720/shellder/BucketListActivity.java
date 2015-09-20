@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.shellder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,23 +58,34 @@ public class BucketListActivity extends AppCompatActivity {
         });
 
         bucketList = (ListView) findViewById(R.id.listView);
-        adapter = new CustomAdapter(this, State.ALL);
 
-        bucketList.setAdapter(adapter);
-        state = State.ALL;
+        if (savedInstanceState == null) {
+            adapter = new CustomAdapter(this, State.ALL);
 
-        bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            bucketList.setAdapter(adapter);
+            state = State.ALL;
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BucketListItem bucketListItem = adapter.getItem(position);
-                // Send an intent to the map activity
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("id",bucketListItem.getId());
-                startActivity(intent);
+            bucketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BucketListItem bucketListItem = adapter.getItem(position);
+                    // Send an intent to the map activity
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putExtra("id",bucketListItem.getId());
+                    startActivity(intent);
+                }
+            });
+        } else {
+            String state_str = savedInstanceState.getString("state");
+            if (state_str.equals("all")) {
+                show_all(null);
+            } else if (state_str.equals("complete")) {
+                show_complete(null);
+            } else {
+                show_inProgress(null);
             }
-        });
-
+        }
     }
 
     public void show_all(View v) {
@@ -137,6 +149,19 @@ public class BucketListActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean("MyBoolean", true);
+        if (state == State.ALL) {
+            savedInstanceState.putString("state","all");
+        } else if (state == State.COMPLETE) {
+            savedInstanceState.putString("state","complete");
+        } else {
+            savedInstanceState.putString("state","inprogress");
+        }
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

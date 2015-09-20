@@ -58,16 +58,17 @@ public class MapsActivity extends FragmentActivity {
         complete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ContentValues value = new ContentValues();
-                if(bucketListItem.getComplete()){
-                    value.put(dbHelper.COLUMN_COMPLETE, 0);
+                ContentValues values = new ContentValues();
+
+                if (bucketListItem.getComplete()) {
+                    values.put(DatabaseHelper.COLUMN_COMPLETE, 0);
+                } else {
+                    values.put(DatabaseHelper.COLUMN_COMPLETE, 1);
                 }
-                else {
-                    value.put(dbHelper.COLUMN_COMPLETE, 1);
-                }
+
                 String select = "id = ?";
                 String[] selectArgs = {index + ""};
-                database.update(DatabaseHelper.TABLE_NAME, value, select, selectArgs);
+                database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
 
             }
         });

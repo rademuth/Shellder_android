@@ -27,7 +27,7 @@
         android:layout_toStartOf="@+id/checkBox1"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:text="Description"
+        android:text="Title"
         android:textSize="24sp"
         android:gravity="start" />
 
@@ -39,7 +39,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10sp"
         android:checked="false"
-        android:focusable="false"
-        android:enabled="false" />
+        android:clickable="false"
+        android:focusable="false" />
 
 </RelativeLayout>
