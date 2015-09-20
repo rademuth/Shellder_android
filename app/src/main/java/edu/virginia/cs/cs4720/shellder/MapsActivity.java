@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.shellder;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -37,7 +39,7 @@ public class MapsActivity extends FragmentActivity {
 
         // Get data from the bucket list activity
         Intent intent = getIntent();
-        int index = intent.getIntExtra("id", 0);
+        final int index = intent.getIntExtra("id", 0);
 
         Log.i("Index",index+"");
 
@@ -51,8 +53,24 @@ public class MapsActivity extends FragmentActivity {
         bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
         cursor.close();
 
-        CheckBox complete = (CheckBox) findViewById(R.id.completeButton);
+        final CheckBox complete = (CheckBox) findViewById(R.id.completeButton);
         complete.setChecked(bucketListItem.getComplete());
+        complete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ContentValues value = new ContentValues();
+                if(bucketListItem.getComplete()){
+                    value.put(dbHelper.COLUMN_COMPLETE, 0);
+                }
+                else {
+                    value.put(dbHelper.COLUMN_COMPLETE, 1);
+                }
+                String select = "id = ?";
+                String[] selectArgs = {index + ""};
+                database.update(DatabaseHelper.TABLE_NAME, value, select, selectArgs);
+
+            }
+        });
 
         setUpMapIfNeeded();
     }
