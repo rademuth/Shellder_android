@@ -6,8 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="8sp"
+        android:orientation="horizontal"
         android:id="@+id/linearLayout_outer">
 
         <LinearLayout
@@ -27,7 +27,8 @@
                 android:maxWidth="60sp"
                 android:maxHeight="60sp"
                 android:clickable="false"
-                android:src="@drawable/ic_done" />
+                android:src="@drawable/ic_done_dark"
+                android:id="@+id/image1"/>
             <TextView
                 android:id="@+id/complete_items"
                 android:layout_height="wrap_content"
@@ -35,7 +36,8 @@
                 android:gravity="center"
                 android:text="Complete"
                 android:textSize="16sp"
-                android:clickable="false" />
+                android:clickable="false"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -55,7 +57,8 @@
                 android:maxWidth="60sp"
                 android:maxHeight="60sp"
                 android:clickable="false"
-                android:src="@drawable/ic_list" />
+                android:src="@drawable/ic_list_dark"
+                android:id="@+id/image2" />
             <TextView
                 android:id="@+id/all_items"
                 android:layout_height="wrap_content"
@@ -83,7 +86,8 @@
                 android:maxWidth="60sp"
                 android:maxHeight="60sp"
                 android:clickable="false"
-                android:src="@drawable/ic_progress" />
+                android:src="@drawable/ic_progress_dark"
+                android:id="@+id/image3" />
             <TextView
                 android:id="@+id/remaining_items"
                 android:layout_height="wrap_content"
