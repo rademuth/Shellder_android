@@ -1,19 +1,47 @@
 package edu.virginia.cs.cs4720.shellder;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
+
+    // TODO - Do we need to close the database
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        // Set up the progress bar
+
+        // TODO - Figure out why this returns 0 entries
+
+        dbHelper = new DatabaseHelper(this);
+        database = dbHelper.getReadableDatabase();
+
+        String selection = "complete = ?";
+        String[] selectionArgs = {1 + ""};
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
+
+        int numComplete = cursor.getCount();
+        int pctComplete = numComplete * 100 / 116;
+
+        cursor.close();
+
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
+        progress.setProgress(pctComplete);
+
+        TextView text = (TextView) findViewById(R.id.progressBarText);
+        text.setText("Progress - " + pctComplete + "%");
     }
 
     public void show_list(View v) {

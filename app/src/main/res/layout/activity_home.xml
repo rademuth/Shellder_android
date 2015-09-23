@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.virginia.cs.cs4720.shellder.HomeActivity"
-    android:id="@+id/">
+    tools:context="edu.virginia.cs.cs4720.shellder.HomeActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,7 +15,8 @@
             android:layout_marginBottom="8sp"
             android:layout_gravity="center"
             android:textSize="32sp"
-            android:text="Progress - 72%"/>
+            android:text="Progress - 72%"
+            android:id="@+id/progressBarText"/>
         <ProgressBar
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="400sp"
