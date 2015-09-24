@@ -6,39 +6,37 @@
 
 
     <CheckBox
-        android:layout_width="159dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Completed"
         android:checked="false"
         android:id="@+id/completeButton"
-        android:layout_gravity="right" />
-
+        android:layout_gravity="right|top" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="380dp">
 
         <fragment
         android:id="@+id/map"
-            android:layout_width="fill_parent"
-        android:layout_height="410dp"
+        android:layout_width="494dp"
+        android:layout_height="400dp"
         tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
         <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Finish"
-            android:id="@+id/finishButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="491dp"
+            android:layout_height="400dp"
+            android:id="@+id/imageButton2" />
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish"
+        android:id="@+id/finishButton"
+        android:layout_gravity="center_horizontal|bottom" />
 
 </LinearLayout>
