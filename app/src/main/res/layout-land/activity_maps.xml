@@ -21,13 +21,13 @@
         <fragment
         android:id="@+id/map"
         android:layout_width="494dp"
-        android:layout_height="400dp"
+        android:layout_height="420dp"
         tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
         <ImageButton
-            android:layout_width="491dp"
-            android:layout_height="400dp"
+            android:layout_width="516dp"
+            android:layout_height="420dp"
             android:id="@+id/imageButton2" />
 
     </LinearLayout>

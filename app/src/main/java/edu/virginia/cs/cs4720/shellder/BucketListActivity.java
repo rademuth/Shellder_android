@@ -25,14 +25,17 @@ public class BucketListActivity extends AppCompatActivity {
     private LinearLayout tab_all;
     private LinearLayout tab_complete;
     private LinearLayout tab_inProgress;
+    private LinearLayout tab_back;
 
     private ImageView image_all;
     private ImageView image_complete;
     private ImageView image_inProgress;
+    private ImageView image_back;
 
     private TextView text_all;
     private TextView text_complete;
     private TextView text_inProgress;
+    private TextView text_back;
 
     private ListView bucketList;
     private CustomAdapter adapter;
@@ -45,6 +48,20 @@ public class BucketListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list);
 
+        tab_back = (LinearLayout) findViewById(R.id.linearLayout_innerB);
+        image_back = (ImageView) findViewById(R.id.imageB);
+        text_back = (TextView) findViewById(R.id.back_items);
+        tab_back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(i);
+            }
+        });
+
+    
         tab_complete = (LinearLayout) findViewById(R.id.linearLayout_inner1);
         image_complete = (ImageView) findViewById(R.id.image1);
         text_complete = (TextView) findViewById(R.id.complete_items);

@@ -8,6 +8,8 @@ import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -72,6 +74,17 @@ public class MapsActivity extends FragmentActivity {
 
             }
         });
+        final Button ret = (Button) findViewById(R.id.finishButton);
+        ret.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent i = new Intent(getApplicationContext(), BucketListActivity.class);
+                startActivity(i);
+            }
+        });
+
 
         setUpMapIfNeeded();
     }
