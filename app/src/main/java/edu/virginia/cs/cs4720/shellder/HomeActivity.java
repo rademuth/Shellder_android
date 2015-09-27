@@ -23,8 +23,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // TODO - Figure out why this returns 0 entries
-
         dbHelper = new DatabaseHelper(this);
         database = dbHelper.getReadableDatabase();
 

@@ -4,41 +4,67 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-    <CheckBox
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:text="Completed"
-        android:checked="false"
-        android:id="@+id/completeButton"
-        android:layout_gravity="right" />
+        <TextView
+            android:id="@+id/textView1_map"
+            android:layout_width="60sp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10sp"
+            android:text="#"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="end" />
 
+        <TextView
+            android:id="@+id/textView2_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/textView1_map"
+            android:layout_toStartOf="@+id/checkBox1_map"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:text="Title"
+            android:textSize="24sp"
+            android:gravity="start" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <CheckBox
+            android:id="@+id/checkBox1_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10sp"
+            android:checked="false"
+            android:clickable="false"
+            android:focusable="false" />
 
-        <fragment
+    </RelativeLayout>
+
+    <fragment
         android:id="@+id/map"
-            android:layout_width="fill_parent"
-        android:layout_height="410dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-        <ImageButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:layout_weight="1"/>
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Finish"
-            android:id="@+id/finishButton"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Finish" />
 
 </LinearLayout>

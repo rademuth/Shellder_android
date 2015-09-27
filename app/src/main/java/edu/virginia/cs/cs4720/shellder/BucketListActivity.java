@@ -2,7 +2,6 @@ package edu.virginia.cs.cs4720.shellder;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,17 +24,14 @@ public class BucketListActivity extends AppCompatActivity {
     private LinearLayout tab_all;
     private LinearLayout tab_complete;
     private LinearLayout tab_inProgress;
-    private LinearLayout tab_back;
 
     private ImageView image_all;
     private ImageView image_complete;
     private ImageView image_inProgress;
-    private ImageView image_back;
 
     private TextView text_all;
     private TextView text_complete;
     private TextView text_inProgress;
-    private TextView text_back;
 
     private ListView bucketList;
     private CustomAdapter adapter;
@@ -48,20 +44,8 @@ public class BucketListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucket_list);
 
-        tab_back = (LinearLayout) findViewById(R.id.linearLayout_innerB);
-        image_back = (ImageView) findViewById(R.id.imageB);
-        text_back = (TextView) findViewById(R.id.back_items);
-        tab_back.setOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(i);
-            }
-        });
-
-    
         tab_complete = (LinearLayout) findViewById(R.id.linearLayout_inner1);
         image_complete = (ImageView) findViewById(R.id.image1);
         text_complete = (TextView) findViewById(R.id.complete_items);
@@ -182,7 +166,7 @@ public class BucketListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_item_list, menu);
+        getMenuInflater().inflate(R.menu.menu_bucket_list, menu);
         return true;
     }
 
@@ -191,13 +175,11 @@ public class BucketListActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

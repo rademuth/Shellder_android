@@ -43,11 +43,17 @@
         <activity
             android:name=".BucketListActivity"
             android:label="@string/title_activity_bucket_list" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.virginia.cs.cs4720.shellder.HomeActivity" />
         </activity>
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.virginia.cs.cs4720.shellder.BucketListActivity" />
         </activity>
 
     </application>

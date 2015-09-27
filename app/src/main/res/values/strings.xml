@@ -2,7 +2,9 @@
     <string name="app_name">Shellder</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_navigate_back">Back</string>
 
+    <string name="title_activity_home">Home</string>
     <string name="title_activity_bucket_list">Bucket List</string>
     <string name="title_activity_maps">Map</string>
 
@@ -362,8 +364,5 @@
         <item>38.035203,-78.503638</item> <!--Go to Valediction-->
         <item>38.035203,-78.503638</item> <!--Wear the Honors of Honor-->
     </string-array>
-    <string name="title_activity_home">HomeActivity</string>
-
-    <string name="hello_world">Hello world!</string>
 
 </resources>

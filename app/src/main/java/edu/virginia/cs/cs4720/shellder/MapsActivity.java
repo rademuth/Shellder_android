@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -23,7 +26,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends AppCompatActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     // TODO - Do we need to close the database
@@ -34,10 +37,12 @@ public class MapsActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.i("MapsActivity","onCreate()");
+        Log.i("MapsActivity", "onCreate()");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get data from the bucket list activity
         Intent intent = getIntent();
@@ -55,36 +60,28 @@ public class MapsActivity extends FragmentActivity {
         bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
         cursor.close();
 
-        final CheckBox complete = (CheckBox) findViewById(R.id.completeButton);
+        final TextView id = (TextView) findViewById(R.id.textView1_map);
+        id.setText(bucketListItem.getId() + "");
+
+        final TextView title = (TextView) findViewById(R.id.textView2_map);
+        title.setText(bucketListItem.getTitle());
+
+        final CheckBox complete = (CheckBox) findViewById(R.id.checkBox1_map);
         complete.setChecked(bucketListItem.getComplete());
-        complete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        final Button finish = (Button) findViewById(R.id.finishButton);
+        finish.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View v) {
                 ContentValues values = new ContentValues();
-
-                if (bucketListItem.getComplete()) {
-                    values.put(DatabaseHelper.COLUMN_COMPLETE, 0);
-                } else {
-                    values.put(DatabaseHelper.COLUMN_COMPLETE, 1);
-                }
-
+                values.put(DatabaseHelper.COLUMN_COMPLETE, 1);
                 String select = "id = ?";
                 String[] selectArgs = {index + ""};
                 database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
-
-            }
-        });
-        final Button ret = (Button) findViewById(R.id.finishButton);
-        ret.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent i = new Intent(getApplicationContext(), BucketListActivity.class);
                 startActivity(i);
             }
         });
-
 
         setUpMapIfNeeded();
     }
@@ -162,4 +159,25 @@ public class MapsActivity extends FragmentActivity {
         */
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_maps, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
