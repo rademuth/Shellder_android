@@ -4,16 +4,21 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,12 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MapsActivity extends AppCompatActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -34,10 +45,10 @@ public class MapsActivity extends AppCompatActivity {
     private SQLiteDatabase database;
     private BucketListItem bucketListItem;
 
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Log.i("MapsActivity", "onCreate()");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -47,8 +58,6 @@ public class MapsActivity extends AppCompatActivity {
         // Get data from the bucket list activity
         Intent intent = getIntent();
         final int index = intent.getIntExtra("id", 0);
-
-        Log.i("Index",index+"");
 
         dbHelper = new DatabaseHelper(this);
         database = dbHelper.getReadableDatabase();
@@ -88,9 +97,6 @@ public class MapsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
-        Log.i("MapsActivity","onResume()");
-
         super.onResume();
         setUpMapIfNeeded();
     }
@@ -158,6 +164,69 @@ public class MapsActivity extends AppCompatActivity {
 
         */
 
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String path,
+                                                     int reqWidth, int reqHeight) { // BEST QUALITY MATCH
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        int inSampleSize = 1;
+
+        if (height > reqHeight) {
+            inSampleSize = Math.round((float)height / (float)reqHeight);
+        }
+
+        int expectedWidth = width / inSampleSize;
+
+        if (expectedWidth > reqWidth) {
+            //if(Math.round((float)width / (float)reqWidth) > inSampleSize) // If bigger SampSize..
+            inSampleSize = Math.round((float)width / (float)reqWidth);
+        }
+
+
+        options.inSampleSize = inSampleSize;
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(path, options);
+    }
+
+    public void takePhoto(View v) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = new File(Environment.getExternalStorageDirectory() + File.separator + bucketListItem.getId() + ".jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                // Image captured and saved to fileUri specified in the Intent
+                Toast.makeText(this, "Image saved to:\n" +
+                        data.getData(), Toast.LENGTH_LONG).show();
+
+                File file = new File(Environment.getExternalStorageDirectory() + File.separator + bucketListItem.getId() + ".jpg");
+                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                imageView.setImageBitmap(decodeSampledBitmapFromFile(file.getAbsolutePath(), 500, 250));
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image cap ture
+            } else {
+                // Image capture failed, advise user
+            }
+        }
     }
 
     @Override

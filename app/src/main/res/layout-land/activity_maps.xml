@@ -60,11 +60,20 @@
             tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
             android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <FrameLayout
             android:layout_width="0sp"
             android:layout_height="fill_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="takePhoto">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_camera"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 

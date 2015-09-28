@@ -1,9 +1,5 @@
 package edu.virginia.cs.cs4720.shellder;
 
-/**
- * Created by Robbie on 9/9/2015.
- */
-
 public class BucketListItem {
 
     private int id;

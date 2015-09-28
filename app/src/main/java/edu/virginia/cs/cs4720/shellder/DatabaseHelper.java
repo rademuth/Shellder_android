@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -41,8 +40,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] titles = res.getStringArray(R.array.bucket_list_titles);
         String[] descriptions = res.getStringArray(R.array.bucket_list_descriptions);
         String[] coordinates = res.getStringArray(R.array.bucket_list_coordinates);
-
-        Log.i("Array Sizes", "Titles (" + titles.length + "), Descriptions (" + descriptions.length + "), Coordinates (" + coordinates.length + ")");
 
         for (int i = 0; i < 116; i++) {
             ContentValues values = new ContentValues();
