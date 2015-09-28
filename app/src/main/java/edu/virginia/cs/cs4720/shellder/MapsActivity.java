@@ -1,41 +1,32 @@
 package edu.virginia.cs.cs4720.shellder;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -103,9 +94,6 @@ public class MapsActivity extends AppCompatActivity {
         tmpPath = bucketListItem.getPhotoPath();
 
         if (tmpPath.length() > 0) {
-
-            Log.i("onCreate - tmpPath",tmpPath);
-
             File f = new File(tmpPath);
             Uri uri = Uri.fromFile(f);
             imageView.setImageURI(uri);
@@ -166,25 +154,30 @@ public class MapsActivity extends AppCompatActivity {
         Location location = mMap.getMyLocation();
         double my_latitude = location.getLatitude();
         double my_longitude = location.getLongitude();
+        LatLng source = new LatLng(my_latitude, my_longitude);
 
         */
 
         // Add marker for the bucket list item location
         float latitude = bucketListItem.getLatitude();
         float longitude = bucketListItem.getLongitude();
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+        LatLng target = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(target));
 
         /*
 
         // Zoom appropriately
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(new LatLng(my_latitude, my_longitude));
-        builder.include(new LatLng(latitude, longitude));
+        builder.include(source);
+        builder.include(target);
         LatLngBounds bounds = builder.build();
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
         mMap.moveCamera(cu);
 
         */
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(target).zoom(15).build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
 
@@ -203,9 +196,6 @@ public class MapsActivity extends AppCompatActivity {
         if (photoFile != null) {
             Uri photoUri = Uri.fromFile(photoFile);
             tmpPath = photoUri.getPath();
-
-            Log.i("takePhoto - tmpPath", tmpPath);
-
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
@@ -215,6 +205,7 @@ public class MapsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             // User successfully took a new photo
+            Toast.makeText(this, "Photo saved successfully...", Toast.LENGTH_SHORT).show();
 
             // Update the bucket list item
             bucketListItem.setPhotoPath(tmpPath);
@@ -249,17 +240,12 @@ public class MapsActivity extends AppCompatActivity {
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        Log.i("TIMESTAMP", timeStamp);
-        Log.i("IMAGEFILENAME", imageFileName);
-        Log.i("STORAGEDIR", storageDir.getPath());
-
-        File image = File.createTempFile(
+        return File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
 
-        return image;
     }
 
     private void galleryAddPic() {
