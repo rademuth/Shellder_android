@@ -7,6 +7,7 @@ public class BucketListItem {
     private String description;
     private float latitude;
     private float longitude;
+    private String photoPath;
     private boolean complete;
 
     public BucketListItem() {
@@ -15,12 +16,13 @@ public class BucketListItem {
         this.complete = false;
     }
 
-    public BucketListItem(int id, String title, String description, float latitude, float longitude, boolean complete) {
+    public BucketListItem(int id, String title, String description, float latitude, float longitude, String photoPath, boolean complete) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.photoPath = photoPath;
         this.complete = complete;
     }
 
@@ -60,6 +62,14 @@ public class BucketListItem {
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
+    }
+
+    public String getPhotoPath() {
+        return this.photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
     public boolean getComplete() {

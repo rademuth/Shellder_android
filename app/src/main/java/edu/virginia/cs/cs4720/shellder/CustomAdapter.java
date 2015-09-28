@@ -48,7 +48,7 @@ public class CustomAdapter extends BaseAdapter{
         }
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            BucketListItem bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
+            BucketListItem bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getString(5), cursor.getInt(6) > 0);
             bucketList.add(bucketListItem);
             cursor.moveToNext();
         }

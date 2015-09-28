@@ -1,5 +1,6 @@
 package edu.virginia.cs.cs4720.shellder;
 
+import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,9 +13,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -45,6 +48,9 @@ public class MapsActivity extends AppCompatActivity {
     private SQLiteDatabase database;
     private BucketListItem bucketListItem;
 
+    private ImageView imageView;
+    private String tmpPath;
+
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
     @Override
@@ -66,7 +72,7 @@ public class MapsActivity extends AppCompatActivity {
         String[] selectionArgs = {index + ""};
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, null, selection, selectionArgs, null, null, null);
         cursor.moveToFirst();
-        bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getInt(5) > 0);
+        bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getString(5), cursor.getInt(6) > 0);
         cursor.close();
 
         final TextView id = (TextView) findViewById(R.id.textView1_map);
@@ -91,6 +97,22 @@ public class MapsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        tmpPath = bucketListItem.getPhotoPath();
+
+        if (tmpPath.length() > 0) {
+
+            Log.i("onCreate - tmpPath",tmpPath);
+
+            File f = new File(tmpPath);
+            Uri uri = Uri.fromFile(f);
+            imageView.setImageURI(uri);
+            ViewGroup.LayoutParams lp = imageView.getLayoutParams();
+            lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        }
 
         setUpMapIfNeeded();
     }
@@ -170,17 +192,83 @@ public class MapsActivity extends AppCompatActivity {
 
     public void takePhoto(View v) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            Toast.makeText(this, "There was a problem saving the photo...", Toast.LENGTH_SHORT).show();
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            Uri photoUri = Uri.fromFile(photoFile);
+            tmpPath = photoUri.getPath();
+
+            Log.i("takePhoto - tmpPath", tmpPath);
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ImageView imageView = (ImageView) findViewById(R.id.imageView);
-            imageView.setImageBitmap(imageBitmap);
+            // User successfully took a new photo
+
+            // Update the bucket list item
+            bucketListItem.setPhotoPath(tmpPath);
+            // Add the photo to the gallery
+            galleryAddPic();
+            // Add the photo to the database
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.COLUMN_PHOTO_PATH, bucketListItem.getPhotoPath());
+            String select = "id = ?";
+            String[] selectArgs = {bucketListItem.getId() + ""};
+            database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
+
+            // Set the image view
+            //File f = new File(tmpPath);
+            //Uri uri = Uri.fromFile(f);
+            //imageView.setImageURI(uri);
+            imageView.setImageURI(Uri.fromFile(new File(tmpPath)));
+            ViewGroup.LayoutParams lp = imageView.getLayoutParams();
+            lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        } else {
+            // User did not take a new photo
+
+            // Reset the photo path
+            tmpPath = bucketListItem.getPhotoPath();
         }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        Log.i("TIMESTAMP", timeStamp);
+        Log.i("IMAGEFILENAME", imageFileName);
+        Log.i("STORAGEDIR", storageDir.getPath());
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        return image;
+    }
+
+    private void galleryAddPic() {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        //File f = new File(tmpPath);
+        //Uri contentUri = Uri.fromFile(f);
+        //intent.setData(contentUri);
+        intent.setData(Uri.fromFile(new File(tmpPath)));
+        this.sendBroadcast(intent);
     }
 
     @Override

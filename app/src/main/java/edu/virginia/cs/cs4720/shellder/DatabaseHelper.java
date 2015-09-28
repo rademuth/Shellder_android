@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_LATITUDE = "latitude";
     public static final String COLUMN_LONGITUDE = "longitude";
+    public static final String COLUMN_PHOTO_PATH = "photo_path";
     public static final String COLUMN_COMPLETE = "complete";
 
     private Context context;
@@ -34,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (" + COLUMN_ID + " integer, " + COLUMN_TITLE + " text, " + COLUMN_DESCRIPTION + " text, " + COLUMN_LATITUDE + " float, " + COLUMN_LONGITUDE + " float, " + COLUMN_COMPLETE + " integer);");
+        db.execSQL("create table " + TABLE_NAME + " (" + COLUMN_ID + " integer, " + COLUMN_TITLE + " text, " + COLUMN_DESCRIPTION + " text, " + COLUMN_LATITUDE + " float, " + COLUMN_LONGITUDE + " float, " + COLUMN_PHOTO_PATH + " text, " + COLUMN_COMPLETE + " integer);");
 
         Resources res = this.context.getResources();
         String[] titles = res.getStringArray(R.array.bucket_list_titles);
@@ -56,6 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values.put(COLUMN_LATITUDE, Float.parseFloat(coordinate[0]));
                 values.put(COLUMN_LONGITUDE, Float.parseFloat(coordinate[1]));
             }
+
+            values.put(COLUMN_PHOTO_PATH, "");
 
             if (i % 3 == 0) {
                 values.put(COLUMN_COMPLETE, 1);

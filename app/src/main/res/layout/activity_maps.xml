@@ -51,6 +51,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
+        android:padding="8sp"
         tools:context="edu.virginia.cs.cs4720.shellder.MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
@@ -58,6 +59,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
+        android:padding="8sp"
         android:onClick="takePhoto">
 
         <ImageView
