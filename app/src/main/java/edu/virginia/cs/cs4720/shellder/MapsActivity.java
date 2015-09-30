@@ -78,16 +78,25 @@ public class MapsActivity extends AppCompatActivity {
 
         final CheckBox complete = (CheckBox) findViewById(R.id.checkBox1_map);
         complete.setChecked(bucketListItem.getComplete());
+        complete.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                if (bucketListItem.getComplete()) {
+                    values.put(dbHelper.COLUMN_COMPLETE, 0);
+                } else {
+                    values.put(dbHelper.COLUMN_COMPLETE, 1);
+                }
+                String select = "id = ?";
+                String[] selectArgs = {index + ""};
+                database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
+            }
+        });
 
         final Button finish = (Button) findViewById(R.id.finishButton);
         finish.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentValues values = new ContentValues();
-                values.put(DatabaseHelper.COLUMN_COMPLETE, 1);
-                String select = "id = ?";
-                String[] selectArgs = {index + ""};
-                database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
                 Intent i = new Intent(getApplicationContext(), BucketListActivity.class);
                 startActivity(i);
             }
