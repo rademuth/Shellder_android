@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,11 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
@@ -38,6 +41,7 @@ public class MapsActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
     private BucketListItem bucketListItem;
+    private Location currentLocation;
 
     private ImageView imageView;
     private String tmpPath;
@@ -132,6 +136,7 @@ public class MapsActivity extends AppCompatActivity {
             // Try to obtain the map from thde SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
@@ -146,39 +151,41 @@ public class MapsActivity extends AppCompatActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+
+        // Add marker for the bucket list item location if a location exists
+        final float latitude = bucketListItem.getLatitude();
+        final float longitude = bucketListItem.getLongitude();
+        final LatLng target = new LatLng(latitude, longitude);
+        if (latitude != 0 || longitude != 0) {
+            mMap.addMarker(new MarkerOptions().position(target));
+        }
+
+        // Zoom the map around
         mMap.setMyLocationEnabled(true);
-
-        /*
-
-        // Get current location
-        Location location = mMap.getMyLocation();
-        double my_latitude = location.getLatitude();
-        double my_longitude = location.getLongitude();
-        LatLng source = new LatLng(my_latitude, my_longitude);
-
-        */
-
-        // Add marker for the bucket list item location
-        float latitude = bucketListItem.getLatitude();
-        float longitude = bucketListItem.getLongitude();
-        LatLng target = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(target));
-
-        /*
-
-        // Zoom appropriately
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(source);
-        builder.include(target);
-        LatLngBounds bounds = builder.build();
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 0);
-        mMap.moveCamera(cu);
-
-        */
-
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(target).zoom(15).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                if (currentLocation == null) {
+                    currentLocation = location;
+                    double my_latitude = location.getLatitude();
+                    double my_longitude = location.getLongitude();
+                    LatLng source = new LatLng(my_latitude, my_longitude);
+                    if (latitude == 0 && longitude == 0) {
+                        // Only zoom around the current location
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(source).zoom(15).build();
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    } else {
+                        // Zoom around the current location and the target
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(source);
+                        builder.include(target);
+                        LatLngBounds bounds = builder.build();
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 250);
+                        mMap.animateCamera(cu);
+                    }
+                }
+            }
+        });
     }
 
     // http://developer.android.com/training/camera/photobasics.html
