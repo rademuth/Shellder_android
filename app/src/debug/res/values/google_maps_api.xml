@@ -1,7 +1,5 @@
 <resources>
     <!--
-    TODO: Before you run your application, you need a Google Maps API key.
-
     To get one, follow this link, follow the directions and press "Create" at the end:
 
 https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=0A:A9:72:20:5F:82:6D:5B:0C:A4:95:F0:6A:8E:3B:4F:C7:8E:F8:B7%3Bedu.virginia.cs.cs4720.shellder
@@ -13,9 +11,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     string in this file.
     -->
 
-    <!-- AIzaSyDRQNn75Mqv2yxotc6qX87gxHNCEvCGEgg -->
-
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyB5uRKNclyZ6-XKeyunZR1YrA43aye1UwQ
+        AIzaSyDKPXqEo5PKicZVzD77cmoF2MRlSGgC_wE
     </string>
 </resources>
