@@ -70,6 +70,10 @@ public class MapsActivity extends AppCompatActivity {
         bucketListItem = new BucketListItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getFloat(4), cursor.getString(5), cursor.getInt(6) > 0);
         cursor.close();
 
+        if (savedInstanceState != null) {
+            bucketListItem.setComplete(savedInstanceState.getBoolean("complete"));
+        }
+
         final TextView id = (TextView) findViewById(R.id.textView1_map);
         id.setText(bucketListItem.getId() + "");
 
@@ -81,22 +85,27 @@ public class MapsActivity extends AppCompatActivity {
         complete.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (bucketListItem.getComplete()) {
+                    bucketListItem.setComplete(false);
+                } else {
+                    bucketListItem.setComplete(true);
+                }
+            }
+        });
+
+        final Button save = (Button) findViewById(R.id.saveButton);
+        save.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 ContentValues values = new ContentValues();
                 if (bucketListItem.getComplete()) {
-                    values.put(dbHelper.COLUMN_COMPLETE, 0);
+                    values.put(DatabaseHelper.COLUMN_COMPLETE, 1);
                 } else {
-                    values.put(dbHelper.COLUMN_COMPLETE, 1);
+                    values.put(DatabaseHelper.COLUMN_COMPLETE, 0);
                 }
                 String select = "id = ?";
                 String[] selectArgs = {index + ""};
                 database.update(DatabaseHelper.TABLE_NAME, values, select, selectArgs);
-            }
-        });
-
-        final Button finish = (Button) findViewById(R.id.finishButton);
-        finish.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), BucketListActivity.class);
                 startActivity(i);
             }
@@ -271,6 +280,12 @@ public class MapsActivity extends AppCompatActivity {
         //intent.setData(contentUri);
         intent.setData(Uri.fromFile(new File(tmpPath)));
         this.sendBroadcast(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean("complete", bucketListItem.getComplete());
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
