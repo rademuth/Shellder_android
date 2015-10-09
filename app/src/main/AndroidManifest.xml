@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.virginia.cs.cs4720.shellder" >
+    package="edu.virginia.cs.cs4720.shellder">
+
+    <uses-sdk android:minSdkVersion="21"
+        android:targetSdkVersion="21"
+        android:maxSdkVersion="21" />
 
     <!-- TODO - Remove irrelevant permissions and require camera access -->
 

@@ -6,17 +6,20 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp">
 
         <TextView
             android:id="@+id/textView1_map"
-            android:layout_width="60sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
+            android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
             android:text="#"
-            android:textSize="32sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:gravity="end" />
 
@@ -25,13 +28,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_toEndOf="@id/textView1_map"
             android:layout_toStartOf="@+id/checkBox1_map"
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
             android:text="Title"
-            android:textSize="24sp"
-            android:gravity="start" />
+            android:textSize="32sp"
+            android:gravity="center" />
 
         <CheckBox
             android:id="@+id/checkBox1_map"
@@ -40,6 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
             android:checked="false"
             android:clickable="false"
             android:focusable="false" />
@@ -85,6 +90,7 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8sp"
         android:layout_gravity="center_horizontal"
         android:text="Save" />
 
