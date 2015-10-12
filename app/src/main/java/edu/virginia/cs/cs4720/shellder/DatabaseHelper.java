@@ -39,7 +39,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Resources res = this.context.getResources();
         String[] titles = res.getStringArray(R.array.bucket_list_titles);
-        String[] descriptions = res.getStringArray(R.array.bucket_list_descriptions);
         String[] coordinates = res.getStringArray(R.array.bucket_list_coordinates);
 
         for (int i = 0; i < 116; i++) {
@@ -47,7 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             values.put(COLUMN_ID, i+1);
             values.put(COLUMN_TITLE, titles[i]);
-            values.put(COLUMN_DESCRIPTION, descriptions[i]);
 
             String[] coordinate = coordinates[i].split(",");
             if (coordinate.length == 1) {
